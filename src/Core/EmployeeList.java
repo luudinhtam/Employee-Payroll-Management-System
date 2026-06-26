@@ -350,6 +350,44 @@ public class EmployeeList extends ArrayList<Employee> {
     // 6. Calculate monthly payroll
     public void calculateMonthlyPayroll() {
         
+        boolean exist = false;
+        double total;
+        
+        for(Employee e : this) {
+            if(e.getStatus().equalsIgnoreCase("active")) {
+                exist = true;
+                break;
+            }
+        }
+        
+        if(exist == false) {
+            System.out.println("No active employee found.");
+            return;
+        }
+        
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println("ID   |       Name       |    Role    | Base Salary | Working Days |  Bonus  | Status | Total Salary");
+        System.out.println("----------------------------------------------------------------------------------------");
+        
+        for(Employee e : this) {
+            if(e.getStatus().equalsIgnoreCase("active")) {
+                
+                total = 0;
+                total = ((e.getBaseSalary() * e.getWorkingDays()) / 26 ) + e.getBonus();
+
+                System.out.format(
+                    "%-4s | %-16s | %-10s | %-11.2f | %-12d | %-7.2f | %-6s | %-12.2f\n",
+                    e.getId(),
+                    e.getName(),
+                    e.getRole(),
+                    e.getBaseSalary(),
+                    e.getWorkingDays(),
+                    e.getBonus(),
+                    e.getStatus(),
+                    total);
+                
+            }
+        }
     }
     
     // 7. Display employee list
